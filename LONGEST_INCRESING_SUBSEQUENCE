@@ -1,0 +1,49 @@
+int Solution::lis(const vector<int> &A) {
+    
+    /*int dp[A.size()];
+    dp[0]=1;
+    for(int i=1; i<A.size(); i++)
+    {
+        dp[i]=1;
+        for(int j=0; j<i; j++)
+        {
+            if(A[i]>A[j] && dp[j]+1>dp[i])                 // TC O(N^2) SC O(N)
+            {
+                dp[i]=dp[j]+1;
+            }
+        }
+    }
+    int max1=0;
+    for(int i=0; i<A.size(); i++)
+    {
+        max1= max(max1,dp[i]);
+    }
+    return max1;*/
+    vector<int> res;
+    res.push_back(A[0]);
+    for(int i=1; i<A.size(); i++)
+    {
+        if(A[i]>res[res.size()-1])
+        {
+            res.push_back(A[i]);     // if A[i] greater than last elemnt of vector res than just simply push
+        }
+        else{                                // else find out the A[i] positon in res vector so that increasing order maintained
+            int l=0;
+            int r= res.size()-1;                    // TC O(NLOG(N)) SC O(N)
+            while(l<=r)
+            {
+                int mid=(l+r)/2;
+                if(res[mid]>=A[i])            
+                {
+                    r=mid-1;
+                }
+                else{
+                    l=mid+1;
+                }
+            }
+            res[l]=A[i];
+        }
+    }
+    return res.size();
+    
+}
