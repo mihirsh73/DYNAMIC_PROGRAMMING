@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& A) {
+         if(A.size()==0) return 0;
+    int buy=0;
+    int sell=0;
+    int profit=0;
+    int flag=0;
+    for(int i=1; i<A.size(); i++)
+    {
+        if(A[i]>=A[i-1])
+        {
+            sell=i;                                                   // When prices increases update sell index
+        }
+        else{ 
+            profit += A[sell]-A[buy];                           // when prices decreases calculate profit ans upadte sell and buy index to i
+            sell=buy=i;
+        }
+        
+        
+    }
+      profit += A[sell]-A[buy];
+    return profit;
+        
+    }
+};
