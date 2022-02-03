@@ -1,0 +1,52 @@
+int  tb[501][501];
+bool palindrome(string A, int i, int j)
+{
+    while(i<j)
+    {
+        if(A[i]!=A[j]) return false;
+        i++;
+        j--;
+    }
+    return true;
+}
+int find(string A, int i, int j)
+{
+    if(i>=j) return 0;
+    if(palindrome(A,i,j)==true) return 0;
+    int ans =INT_MAX;
+    if(tb[i][j]!=-1)
+    {
+        return tb[i][j];
+    }
+    int left,right;
+    for(int k=i; k<=j-1; k++)
+    {
+        if(tb[i][k]!=-1)
+        {
+            left=tb[i][k];
+        }
+        else{
+            left= find(A,i,k);
+            tb[i][k]=left;
+        }
+        if(tb[k+1][j]!=-1)
+        {
+            right=tb[k+1][j];
+        }
+        else{
+            right=find(A,k+1,j);
+            tb[k+1][j]=right;
+        }
+        int t = 1+ left+right;
+        ans= min(ans ,t);
+    }
+     tb[i][j]=ans;
+     return ans;
+}
+int Solution::minCut(string A) {
+    memset(tb,-1,sizeof(tb));
+    int i=0;
+    int j= A.size()-1;
+    return find(A,i,j);
+}
+// OPTIMAL SOLUTION TC O(N^2) SC O(N^2);
