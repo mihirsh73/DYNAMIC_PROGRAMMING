@@ -1,0 +1,42 @@
+
+int find(vector<int> A, vector<int> B, int C , int n, int dp[][])
+{
+    if(n==0 || C==0) return 0;
+    if(dp[n-1][C]!=-1)
+    {
+        return dp[n][C];
+    }
+    else if(C>=B[n-1])
+    {
+        dp[n][C]= max(B[n]+ find(A,B,C-B[n],n-1,dp),find(A,B,C,n-1,dp));
+        retur dp[n][C];
+    }
+    else{
+        dp[n][C]= find(A,B,C,n-1,dp);
+        return dp[n][C];
+    }
+}
+int Solution::solve(vector<int> &A, vector<int> &B, int C) {
+    /*int dp[A.size()+1][C+1];
+    for(int i=0; i<=A.size(); i++)
+    {
+        for(int w=0; w<=C; w++)
+        {
+            if(i==0|| w==0) dp[i][w]=0;
+            else if(w>=B[i-1])
+            {
+                dp[i][w]= max(A[i-1]+ dp[i-1][w-B[i-1]], dp[i-1][w]);
+            }
+            else{
+                dp[i][w]= dp[i-1][w];
+            }
+        }
+    }
+    return dp[A.size()][C];*/
+    int dp[A.size()+1][C+1];
+    memset(dp,-1,sizeof(dp));
+    return find(A,B,C,A.size()-1,dp);
+    
+    
+    
+}
