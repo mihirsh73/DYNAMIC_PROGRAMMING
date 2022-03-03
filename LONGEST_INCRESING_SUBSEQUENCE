@@ -27,7 +27,7 @@ int Solution::lis(const vector<int> &A) {
         {
             res.push_back(A[i]);     // if A[i] greater than last elemnt of vector res than just simply push
         }
-        else{                                // else find out the A[i] positon in res vector so that increasing order maintained
+        else{                                //  replace with just greater element  2,5,11 upcoming is 3 new array wll be 2,3,11
             int l=0;
             int r= res.size()-1;                    // TC O(NLOG(N)) SC O(N)
             while(l<=r)
