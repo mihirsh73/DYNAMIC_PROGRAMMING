@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        /*if(prices.size()==0 || prices.size()==1) return 0;
+        int profit[k+1][prices.size()+1];
+        for(int i=0; i<=k; i++)
+        {
+            for(int j=0; j<prices.size(); j++)
+            {                                                               TC O(N^2*K) SC O(N^2)
+                if(i==0 || j==0)
+                {
+                    profit[i][j]=0;
+                }
+                else{
+                    int ans = INT_MIN;
+                    for(int m=0; m<j; m++)
+                    {
+                        ans = max(ans,prices[j]-prices[m]+profit[i-1][m]);
+                    }
+                    profit[i][j]= max(ans,profit[i][j-1]);
+                    
+                    
+                }
+            }
+        }
+        return profit[k][prices.size()-1];*/
+        if(prices.size()==0 || prices.size()==1) return 0;
+        int profit[k+1][prices.size()+1];
+        for(int i=0; i<=k; i++)
+        {
+            int pd= INT_MIN;
+            for(int j=0; j<prices.size(); j++)
+            {
+                if(i==0 || j==0)
+                {
+                    profit[i][j]=0;
+                }
+                else{
+                    pd = max(pd,profit[i-1][j-1]-prices[j-1]);                          TC O(N*K) SC O(N*K);
+                    profit[i][j]= max(profit[i][j-1], prices[j]+pd);
+                }
+            }
+        }
+        return profit[k][prices.size()-1];
+                
+        
+    }
+};
