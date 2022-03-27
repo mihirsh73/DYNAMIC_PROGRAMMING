@@ -1,0 +1,31 @@
+int minCoins(int coins[], int M, int V) 
+	{ 
+	    
+	    int ans= INT_MAX;
+	    int table[V+1];    // taking only 1D array
+	    table[0]=0;
+	    for(int i=1; i<=V; i++)
+	    {
+	        table[i]=INT_MAX;
+	    }
+	    for(int i=1; i<=V; i++)              // taking sum in the outside loop
+	    {
+	        for(int j=0; j<M; j++)
+	        {
+	            if(i>=coins[j])
+	            {
+	                int sub_result=table[i-coins[j]];
+	                if(sub_result!=INT_MAX && sub_result+1<table[i])
+	                {
+	                    table[i]= sub_result+1;
+	                }
+	            }
+	        }
+	    }
+	    if(table[V]==INT_MAX)
+	    {
+	        return -1;
+	    }
+	    return table[V];
+      }
+      // TC O(MV) sc O(v)
