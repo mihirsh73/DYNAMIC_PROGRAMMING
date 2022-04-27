@@ -1,0 +1,34 @@
+given a value V and array coins[] of size M, the task is to make the change for V cents,
+given that you have an infinite supply of each of coins{coins1, coins2, ..., coinsm} valued coins. 
+Find the minimum number of coins to make the change. If not possible to make change then return -1
+	int minCoins(int coins[], int M, int V) 
+	{ 
+	    
+	    int ans= INT_MAX;
+	    int table[V+1];
+	    table[0]=0;
+	    for(int i=1; i<=V; i++)
+	    {
+	        table[i]=INT_MAX;
+	    }
+	    for(int i=1; i<=V; i++)
+	    {
+	        for(int j=0; j<M; j++)
+	        {
+	            if(i>=coins[j])
+	            {
+	                int sub_result=table[i-coins[j]];
+	                if(sub_result!=INT_MAX && sub_result+1<table[i])
+	                {
+	                    table[i]= sub_result+1;
+	                }
+	            }
+	        }
+	    }
+	    if(table[V]==INT_MAX)
+	    {
+	        return -1;
+	    }
+	    return table[V];
+	} 
+	  
