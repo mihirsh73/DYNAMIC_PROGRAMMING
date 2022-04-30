@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(nums.size()==1) return nums[0];
+        if(nums.size()==2) return max(nums[0],nums[1]);
+        int dp[nums.size()-1];
+        dp[0]=nums[0];  // first neglect last house .
+        dp[1]=max(nums[0],nums[1]);
+        for(int i=2; i<nums.size()-1; i++)  // this is why nums.size()-1
+        {
+            dp[i] = max(dp[i-1],nums[i]+dp[i-2]);
+        }
+        
+        int dp1[nums.size()-1];
+        dp1[0]=nums[1];                         // then neglect first house
+        dp1[1]=max(nums[2],nums[1]);
+        for(int i=2; i<nums.size()-1; i++)
+        {
+            dp1[i]= max(dp1[i-1], nums[i+1]+dp1[i-2]);   // this why i+1
+        }
+        return max(dp[nums.size()-2],dp1[nums.size()-2]);
+        
+    }
+};
