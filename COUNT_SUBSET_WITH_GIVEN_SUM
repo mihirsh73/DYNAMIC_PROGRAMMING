@@ -11,10 +11,14 @@ class Solution{
         int dp[n+1][sum+1];
        //initialization
            dp[0][0]=1;
-           for(int j=1;j<sum+1;j++)                                                        // main logic
+           for(int j=1;j<sum+1;j++)
            {
                    dp[0][j]=0;
                
+           }
+           for(int j=1; j<=n; j++)
+           {
+               dp[j][0]=1;
            }
            
           
