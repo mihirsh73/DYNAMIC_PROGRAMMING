@@ -1,0 +1,53 @@
+int cut[a.length()];
+    bool palindrome[a.length()][a.length()];
+    memset(palindrome, false, sizeof(palindrome));
+    for (int i = 0; i < a.length(); i++)
+    {
+        int minCut = i;
+        for (int j = 0; j <= i; j++)
+        {
+            if (a[i] == a[j] && (i - j < 2 || palindrome[j + 1][i - 1]))             TC O(N^2)
+            {
+                palindrome[j][i] = true;
+                minCut = min(minCut, j == 0 ? 0 : (cut[j - 1] + 1));
+            }
+        }
+        cut[i] = minCut;
+    }
+    return cut[a.length() - 1];
+    
+    /////////////////////////////////////////////////////////////////////
+        int dp[500][500];
+bool palin(string s, int i, int j)
+{
+    while(i<=j)
+    {
+        if(s[i]!=s[j]) return false;
+        i++;
+        j--;
+    }
+    return true;
+}
+int find(string str, int i, int j)
+{
+    if(i>=j || palin(str,i,j)==true) return 0;
+    if(dp[i][j]!=-1)
+    {
+        return dp[i][j];
+    }
+    int mini=INT_MAX;
+    for(int k=i; k<j; k++)
+    {
+        int count = find(str,i,k)+find(str,k+1,j)+1;              TC O(N^3)
+          mini= min(count,mini);
+    }
+    return dp[i][j]=mini;
+}
+    int palindromicPartition(string str)
+    {
+         memset(dp,-1,sizeof(dp));
+         if(str.size()==0) return 0;
+       int i=0;
+       int j=str.size()-1;
+       return find(str,i,j);
+    }
