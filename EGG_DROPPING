@@ -1,0 +1,28 @@
+ int dp[201][201];
+    int egg(int n,int k)
+    {
+         if(dp[n][k]!=-1)
+        {
+            return dp[n][k];
+        }
+        if(n==1)
+        {
+            return k;
+        }
+        if(k==1) return k;
+       
+        int count=INT_MAX;
+        for(int j=1; j<=k; j++)                      TC O(N*k^2) N= EGGS K=FLOORS
+        {
+            int t =  max(egg(n-1,j-1),egg(n,k-j));
+            count = min(count,t);
+        }
+      dp[n][k]=count+1;
+      return count+1;
+    }
+    int eggDrop(int n, int k) 
+    {
+        memset(dp,-1,sizeof(dp));
+        return egg(n,k);
+        
+    }
