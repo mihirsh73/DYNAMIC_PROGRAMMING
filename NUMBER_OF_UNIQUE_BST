@@ -1,0 +1,49 @@
+
+#include <iostream>
+using namespace std;                                       FORMULA nCr/(n+1)
+ 
+// A dynamic programming based function to find nth
+// Catalan number
+unsigned long int catalanDP(unsigned int n)
+{
+    // Table to store results of subproblems
+    unsigned long int catalan[n + 1];
+ 
+    // Initialize first two values in table                        TC O(N^2) SC O(N)
+    catalan[0] = catalan[1] = 1;
+ 
+    // Fill entries in catalan[] using recursive formula
+    for (int i = 2; i <= n; i++) {
+        catalan[i] = 0;
+        for (int j = 0; j < i; j++)
+            catalan[i] += catalan[j] * catalan[i - j - 1];
+    }
+ 
+    // Return last entry
+    return catalan[n];
+}
+///////////////////////////////////////////////////////////////////////////////////
+CONSIDER EXAMPLE OF  10c7=  10!/7!3!= 10*9*8/1*2*3;
+10c7=10c3
+int catalan(long long int n, long long int k)
+{
+   if(k>n-k)
+   {
+    k=n-k;
+   
+   }
+   long long int res=1;
+   for(int i=0; i<k; i++)
+   {
+     res = res*(n-i);                  TC O(N) SC O(1)
+     res/=(i+1);
+   
+   }
+   return res;
+}
+int main()
+{
+
+long long int c = catalan(2*n,n);
+return c/(n+1);
+}
