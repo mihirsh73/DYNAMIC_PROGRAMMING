@@ -1,0 +1,38 @@
+void dfs(int low, int high, int num, int i, vector<int> &res)
+    {
+        if(num>=low && num<=high)
+        {
+            res.push_back(num);
+        }
+        if(num>high || i>9)   // TC O(N(LOG(N))) SC O(N)
+        {
+            return;
+        }
+        dfs(low,high,num*10+i, i+1,res);
+    }
+    vector<int> sequentialDigits(int low, int high) {
+        // vector<int> res;
+        // string ans="123456789";
+        // int l= to_string(low).size();
+        // int r= to_string(high).size();
+        // for(int i=l; i<=r; i++)
+        // {
+        //     for(int j=0; j<10-i; j++)
+        //     {
+        //         int num = stoi(ans.substr(j,i));  TC O(1) SC O(1)
+        //         if(num>=low && num<=high)
+        //         {
+        //             res.push_back(num);
+        //         }
+        //     }
+        // }
+        // return res;
+      vector<int> res;
+        for(int i=1; i<=9; i++)
+        {
+            dfs(low, high,0,i,res);
+        }
+        sort(res.begin(),res.end());
+        return res;
+        
+    }
