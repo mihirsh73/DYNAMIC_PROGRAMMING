@@ -14,8 +14,8 @@
         int count=INT_MAX;
         for(int j=1; j<=k; j++)                      TC O(N*k^2) N= EGGS K=FLOORS
         {
-            int t =  max(egg(n-1,j-1),egg(n,k-j));
-            count = min(count,t);
+            int t =  max(egg(n-1,j-1),egg(n,k-j)); // considering worst case
+            count = min(count,t); // finding minimum
         }
       dp[n][k]=count+1;
       return count+1;
