@@ -27,7 +27,7 @@ class Solution{
        
        for(int i=1;i<=n;i++) 
        {
-           for(int j=0;j<=sum;j++)
+           for(int j=0;j<=sum;j++)            // sum can we 0 also
            {
                if(arr[i-1]<=j)
                {
