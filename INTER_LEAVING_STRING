@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int dp[102][102];
+    bool check(string s1, string s2, string s3, int i, int j, int k)
+    {
+        if(i<0 && j<0 && k<0) return true;
+        if(i>=0 && j>=0 && dp[i][j]!=-1) return dp[i][j];
+        if(i>=0 && s1[i]==s3[k] && j>=0 && s2[j]==s3[k])
+        {
+            return dp[i][j]=check(s1,s2,s3,i-1,j,k-1) || check(s1,s2,s3,i,j-1,k-1);
+        }
+        else if(i>=0 && s1[i]==s3[k])
+        {
+            return check(s1,s2,s3,i-1,j,k-1);
+        }
+        else if(j>=0 && s2[j]==s3[k])
+        {
+            return check(s1,s2,s3,i,j-1,k-1);
+        }
+        return false;
+    }
+    bool isInterleave(string s1, string s2, string s3) {
+        if(s3.size()!= s1.size()+s2.size()) return false;
+        memset(dp,-1, sizeof(dp));
+        return check(s1,s2,s3,s1.size()-1,s2.size()-1,s3.size()-1);
+        
+        
+    }
+};
+O(N*N) N = size of string
