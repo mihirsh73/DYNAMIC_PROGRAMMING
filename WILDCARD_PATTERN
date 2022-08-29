@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+int dp[201][201];
+bool find(int i, int j, string s1, string s2)
+{
+    
+    if(i<0 && j<0) return true;
+    if(i<0 && j>=0) return false;
+    if(j<0 && i>=0)
+    {
+        for(int ii=0; ii<i; ii++)
+        {
+            if(s1[ii]!='*') return dp[i][j]=false;  // this is for if text is finished pattern ;left say *** which means * can be replace by empty string so check all th remaining string
+        }
+        return dp[i][j]=true;
+    }
+    if(dp[i][j]!=-1)
+    {
+        return dp[i][j];
+    }
+    if(s1[i]==s2[j] || s1[i]=='?')
+    {
+        return dp[i][j]=find(i-1,j-1,s1,s2);
+    }
+    
+    if(s1[i]=='*')
+    {
+        return dp[i][j]=find(i-1,j,s1,s2) || find(i,j-1,s1,s2);        // tc o(n*m) sc o(n*m)
+    }
+    return dp[i][j]=false;
+}
+bool wildcardMatching(string pattern, string text)
+{
+   int n = pattern.size();
+    int m = text.size();
+   memset(dp,-1,sizeof(dp));
+    return find(n-1,m-1, pattern,text);
+}
