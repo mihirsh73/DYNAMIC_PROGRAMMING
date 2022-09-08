@@ -23,5 +23,5 @@ Minimum number of deletions and insertions to transform one string into another
     // L[m][n] contains length of LCS
     // for X[0..n-1] and Y[0..m-1]
      int len=L[m][n];
-      return m-len+n-len;
+      return m-len+n-len;    // m-len for deleting , n-len for adding
 	} 
