@@ -1,0 +1,24 @@
+https://leetcode.com/problems/min-cost-climbing-stairs/?envType=study-plan&id=dynamic-programming-i
+
+
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+      if(cost.size()==2)
+      {
+          return min(cost[0],cost[1]);
+      }
+      int f= cost[0];
+      int s= cost[1];    // little bit different from house robber because we have only we always need to select one but house robber we can select anyone to get maximum profit.
+      for(int i=2; i<cost.size(); i++)
+      {
+          int t= cost[i]+min(f,s);
+           f=s;
+          s=t;
+      }
+      return  min(s,f);
+        
+    }
+};
+TC O(N)
+SC O(1)
