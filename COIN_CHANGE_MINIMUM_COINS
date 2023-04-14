@@ -32,3 +32,44 @@ Find the minimum number of coins to make the change. If not possible to make cha
 	    return table[V];
 	} 
 	  
+     ///////////////////////////////////////////Second Approach Recusrion + memorization////////////////////////////////////////////////////////////
+     class Solution {
+public:
+    int dp[10001];
+   int coinChangeUtil(vector<int> coins,int n, int amount)
+   {
+       if(amount==0)
+       {
+           return 0;
+       }
+       if(dp[amount]!=-1)
+       {
+           return dp[amount];
+       }
+       int res= INT_MAX;
+       for(int i=0; i<n; i++)
+       {
+           if(amount>=coins[i])
+           {
+               int sub_res= coinChangeUtil(coins,n,amount-coins[i]);
+               if(sub_res!=INT_MAX && sub_res+1<res)
+               {
+                   res=sub_res+1;
+               }
+           }
+       }
+       dp[amount]=res;
+       return dp[amount];
+   }
+    int coinChange(vector<int>& coins, int amount) {
+        int n =coins.size();
+        memset(dp,-1,sizeof(dp));
+        int ans=coinChangeUtil(coins,n,amount);
+        if(ans==INT_MAX)
+        {
+            return -1;
+        }
+        return ans;
+        
+    }
+};
