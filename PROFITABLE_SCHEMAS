@@ -1,0 +1,30 @@
+https://leetcode.com/problems/profitable-schemes/description/
+
+int mod = 1e9+7;
+   int dp[101][101][101];
+   int find(int index, int count, int profit,int n, int minProfit, vector<int> &group, vector<int> &profits)
+   {
+       if(index==group.size())
+       {
+           if(profit>=minProfit) return 1;
+           return 0;
+
+       }
+       if(dp[index][count][profit]!=-1)
+       {
+           return dp[index][count][profit];
+       }
+       int ways= find(index+1,count,profit,n,minProfit,group,profits);
+       if(count+group[index]<=n)
+       {
+           ways += find(index+1,count+group[index],min(minProfit,profit+profits[index]),n,minProfit,group,profits);  // min(minProfit,profit+profits[index]) because minProfit range in 101 , profit+profit[index] van we greater than 101 limit
+       }
+      return dp[index][count][profit]= ways % mod;
+
+   }
+    int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
+        memset(dp,-1,sizeof(dp));
+        return find(0,0,0,n,minProfit,group,profit);
+    }
+    //////////////////////////////   TC O(N*M*K) N= SIZE OF MEMBER LIMIT, M= SIZE OF GROUP VECTOR ,K= MinProfit  
+    //////////////////////////////    SC SAME AS TC
